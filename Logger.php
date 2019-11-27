@@ -1,13 +1,21 @@
 <?php
 
-
-namespace Logging;
-
 /**
  * @author  advename
  * @since   October 27, 2019
  * @link    https://github.com/advename/Simple-PHP-Logger
  * @version 1.0.0
+ * 
+ * Description:
+ * The simple php logger is a single-file logwriter with the features of:
+ *  - following some PSR-3 standards
+ *  - single file
+ *  - singleton pattern
+ *  - six log levels (info, notice, debug, warning, error, fatal)
+ *  - logs the line of execution too (good for troubleshooting)
+ *  - can be with or without OOP
+ *  - no composer needed
+ * 
  */
 
 class Logger
