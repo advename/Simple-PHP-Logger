@@ -32,7 +32,7 @@ The simple php logger uses six log levels:
 | INFO  |  Used for general informations | "The server has been running X hours" |  
 | NOTICE  |  Used for interesting events | "The user $userName has logged in." |  
 | DEBUG | Used for debugging | Could be used instead of echo'ing values |
-| WARNING | Used for anything that might/ might not be a problem. |  | 
+| WARNING | Used for anything that might/ might not be a problem. | "The image XX is 30MB big. This can cause slow web performance" | 
 | ERROR | Any error which is fatal to the operation, but not shutting down the application| Can't open a required file, missing data, etc. | 
 | FATAL | Any error which is shutting down the application| Database unavailable | 
 
