@@ -109,6 +109,8 @@ Logger::setOptions([
 ```
 
 ##### Note
+**Big thanks to** reddit user [u/mferly](https://www.reddit.com/user/mferly) for his support and guidance!
+
 This logger is inspired by:
 - [Simple PHP Text Logging Class \| drew.d.lenhart](https://www.drewlenhart.com/blog/simple-php-logger-class)
 - [Monolog](https://github.com/Seldaek/monolog) 
