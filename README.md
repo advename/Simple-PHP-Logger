@@ -21,7 +21,7 @@ The simple php logger's features are
 - no composer needed :tada:
 
 ### :wrench: Motivation
-There are many PHP Logger's out there, but most of them either follow all PSR-3 requirements or are too basic. Sometimes, you simply want something in the middle which can be used in every situation. Therefore, I've decided to create a basic PHP Logger, based on many PSR-3 standards using a singleton design pattern and inside a single file. This makes it an accessible and powerful logger.
+There are many PHP Logger's out there, but most of them are either very heavy or too basic. Sometimes, you simply want something in the middle suitable for every situation and project size. Therefore, I've decided to create a basic PHP Logger, based on many PSR-3 standards using a singleton design pattern and inside a single file. This makes it an accessible and powerful logger.
 
 ### :white_check_mark: Installation
 Simply download the Logger.php file and require it wherever you need it.
