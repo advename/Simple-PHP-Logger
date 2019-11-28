@@ -5,6 +5,10 @@
 ```php
 Logger::info("I'm an info message");
 ```
+output
+```
+[22:50:35 28-Nov-2019] [localhost/test.php] [1] : [INFO] - I'm an info message
+```
 
 The simple php logger's features are
 - following various PSR-3 standards
@@ -100,12 +104,12 @@ Logger::setOptions([
 
 **Logger outputs**
 ```codes
-[15:45:33 27-Nov-2019] [localhost/boatie_template/test.php] [4] : [INFO]- The article XX has YY comments 
-[15:45:33 27-Nov-2019] [localhost/boatie_template/test.php] [8] : [NOTICE]- The user XX has created the YY article 
-[15:45:33 27-Nov-2019] [localhost/boatie_template/test.php] [12] : [DEBUG]- This is where the code breaks 
-[15:45:33 27-Nov-2019] [localhost/boatie_template/test.php] [16] : [WARNING]- The file XX is 100GB big 
-[15:45:33 27-Nov-2019] [localhost/boatie_template/test.php] [19] : [ERROR]- The file XX is missing 
-[15:45:33 27-Nov-2019] [localhost/boatie_template/test.php] [23] : [FATAL]- Database connection failed ["Very bad database","I didnt feed him"]
+[15:45:33 27-Nov-2019] [localhost/test.php] [4] : [INFO]- The article XX has YY comments 
+[15:45:33 27-Nov-2019] [localhost/test.php] [8] : [NOTICE]- The user XX has created the YY article 
+[15:45:33 27-Nov-2019] [localhost/test.php] [12] : [DEBUG]- This is where the code breaks 
+[15:45:33 27-Nov-2019] [localhost/test.php] [16] : [WARNING]- The file XX is 100GB big 
+[15:45:33 27-Nov-2019] [localhost/test.php] [19] : [ERROR]- The file XX is missing 
+[15:45:33 27-Nov-2019] [localhost/test.php] [23] : [FATAL]- Database connection failed ["Very bad database","I didnt feed him"]
 ```
 
 ##### Note
