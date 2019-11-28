@@ -5,7 +5,7 @@
 ```php
 Logger::info("I'm an info message");
 ```
-output
+outputs inside a *log-28-nov-2019.txt*:
 ```
 [22:50:35 28-Nov-2019] [localhost/test.php] [1] : [INFO] - I'm an info message
 ```
