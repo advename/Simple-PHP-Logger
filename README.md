@@ -87,8 +87,8 @@ The simple php logger outputs the logs in the following blueprint:
 
 **Example of the outputs of all methods above**
 ```codes
-[15:45:33 27-Nov-2019] [localhost/boatie_template/test.php] [N/A] : [INFO]- The article XX has YY comments 
-[15:45:33 27-Nov-2019] [localhost/boatie_template/test.php] [N/A] : [NOTICE]- The user XX has created the YY article 
+[15:45:33 27-Nov-2019] [localhost/boatie_template/test.php] [4] : [INFO]- The article XX has YY comments 
+[15:45:33 27-Nov-2019] [localhost/boatie_template/test.php] [8] : [NOTICE]- The user XX has created the YY article 
 [15:45:33 27-Nov-2019] [localhost/boatie_template/test.php] [12] : [DEBUG]- This is where the code breaks 
 [15:45:33 27-Nov-2019] [localhost/boatie_template/test.php] [16] : [WARNING]- The file XX is 100GB big 
 [15:45:33 27-Nov-2019] [localhost/boatie_template/test.php] [19] : [ERROR]- The file XX is missing 
