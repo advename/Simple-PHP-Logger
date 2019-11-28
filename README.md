@@ -46,7 +46,7 @@ The simple php logger uses six log levels:
 Here's a basic example how you could use simple php logger
 ```php
 <?php
-include_once(__DIR__ . '/log/Logger.php');
+include_once(Logger.php');
 
 function connectToDatabase()
 {
