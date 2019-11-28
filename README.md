@@ -1,5 +1,5 @@
 # :floppy_disk: Simple PHP Logger :floppy_disk:
-[![PyPI license](https://img.shields.io/pypi/l/ansicolortags.svg)](https://pypi.python.org/pypi/ansicolortags/) [![Github all releases](https://img.shields.io/github/downloads/Naereen/StrapDown.js/total.svg)](https://GitHub.com/Naereen/StrapDown.js/releases/)
+[![PyPI license](https://img.shields.io/pypi/l/ansicolortags.svg)](https://pypi.python.org/pypi/ansicolortags/) ![](https://img.shields.io/github/languages/code-size/advename/Simple-PHP-Logger)
 
 *Simple php logger* is a single file PHP log writer which follows various PSR-3 standards and writes logs into a .txt file using one line of code, e.g.
 ```php
