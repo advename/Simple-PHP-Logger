@@ -1,5 +1,5 @@
 # :floppy_disk: Simple PHP Logger :floppy_disk:
-
+[![PyPI license](https://img.shields.io/pypi/l/ansicolortags.svg)](https://pypi.python.org/pypi/ansicolortags/)
 
 *Simple php logger* is a single file PHP log writer which follows various PSR-3 standards and writes logs into a .txt file using one line of code, e.g.
 ```php
@@ -17,14 +17,12 @@ The simple php logger's features are
 - no composer needed :tada:
 
 ### :wrench: Motivation
-There are many PHP Logger out there, but most of them either follow the whole PSR-3 standard or are too basic.
-The issue with the one following PSR-3 is that most of them require composer or are made up of multiple files.
-Therefore, I've decided to create a basic PHP Logger, based on some of the PSR-3 standards using a singleton design pattern.
+There are many PHP Logger's out there, but most of them either follow all PSR-3 requirements or are too basic. Sometimes, you simply want something in the middle which can be used in every situation. Therefore, I've decided to create a basic PHP Logger, based on many PSR-3 standards using a singleton design pattern and inside a single file. This makes it an accessible and powerful logger.
 
 ### :white_check_mark: Installation
 Simply download the Logger.php file and require it wherever you need it.
-You can also insert it into a *Log* directory and add Namespaces to it.
-Make sure that the directory `logs/` exists or is writable, else the logger throws an error that it cant create/write the log file.
+You can also insert it into a *Log* directory and add a namespace to it, for those who want to use it within an OOP project
+Make sure that the directory `logs/` exists and is writable, else the logger throws an error that it cant read/write/create the log files.
 
 ### :mag_right: Log levels
 The simple php logger uses six log levels:
