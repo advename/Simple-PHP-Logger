@@ -10,6 +10,7 @@ outputs inside a *log-28-nov-2019.txt*:
 [22:50:35 28-Nov-2019] [localhost/test.php] [1] : [INFO] - I'm an info message
 ```
 
+##### Features
 The simple php logger's features are
 - following various PSR-3 standards
 - single file
