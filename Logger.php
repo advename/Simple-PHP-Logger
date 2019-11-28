@@ -1,9 +1,10 @@
-<?php
+?php
 
 /**
  * @author  advename
  * @since   October 27, 2019
  * @link    https://github.com/advename/Simple-PHP-Logger
+ * @license MIT
  * @version 1.0.0
  * 
  * Description:
@@ -15,7 +16,6 @@
  *  - logs the line of execution too (good for troubleshooting)
  *  - can be with or without OOP
  *  - no composer needed
- * 
  */
 
 class Logger
@@ -98,15 +98,17 @@ class Logger
      */
     public static function info($message, array $context = [])
     {
-        // grab the line where the log method has been executed ( for troubleshooting )
-        $bt = debug_backtrace();
+        // grab the line and file path where the log method has been executed ( for troubleshooting )
+        $bt = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 1);
         $caller = array_shift($bt);
-        $lineNumber = $caller['line'];
+        $line = $caller['line'];
+        $path = $caller['file'];
 
-        //execute the write log
+        //execute the writeLog method with passing the arguments
         static::writeLog([
             'message' => $message,
-            'line' => $lineNumber,
+            'line' => $line,
+            'path' => $path,
             'severity' => 'INFO',
             'context' => $context
         ]);
@@ -123,15 +125,17 @@ class Logger
      */
     public static function notice($message, array $context = [])
     {
-        // grab the line where the log method has been executed ( for troubleshooting )
-        $bt = debug_backtrace();
+        // grab the line and file path where the log method has been executed ( for troubleshooting )
+        $bt = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 1);
         $caller = array_shift($bt);
-        $lineNumber = $caller['line'];
+        $line = $caller['line'];
+        $path = $caller['file'];
 
-        //execute the write log
+        //execute the writeLog method with passing the arguments
         static::writeLog([
             'message' => $message,
-            'line' => $lineNumber,
+            'line' => $line,
+            'path' => $path,
             'severity' => 'NOTICE',
             'context' => $context
         ]);
@@ -150,15 +154,17 @@ class Logger
     {
 
 
-        // grab the line where the log method has been executed ( for troubleshooting )
-        $bt = debug_backtrace();
+        // grab the line and file path where the log method has been executed ( for troubleshooting )
+        $bt = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 1);
         $caller = array_shift($bt);
-        $lineNumber = $caller['line'];
+        $line = $caller['line'];
+        $path = $caller['file'];
 
-        //execute the write log
+        //execute the writeLog method with passing the arguments
         static::writeLog([
             'message' => $message,
-            'line' => $lineNumber,
+            'line' => $line,
+            'path' => $path,
             'severity' => 'DEBUG',
             'context' => $context
         ]);
@@ -176,15 +182,17 @@ class Logger
     public static function warning($message, array $context = [])
     {
 
-        // grab the line where the log method has been executed ( for troubleshooting )
-        $bt = debug_backtrace();
+        // grab the line and file path where the log method has been executed ( for troubleshooting )
+        $bt = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 1);
         $caller = array_shift($bt);
-        $lineNumber = $caller['line'];
+        $line = $caller['line'];
+        $path = $caller['file'];
 
-        //execute the write log
+        //execute the writeLog method with passing the arguments
         static::writeLog([
             'message' => $message,
-            'line' => $lineNumber,
+            'line' => $line,
+            'path' => $path,
             'severity' => 'WARNING',
             'context' => $context
         ]);
@@ -201,15 +209,17 @@ class Logger
      */
     public static function error($message, array $context = [])
     {
-        // grab the line where the log method has been executed ( for troubleshooting )
-        $bt = debug_backtrace();
+        // grab the line and file path where the log method has been executed ( for troubleshooting )
+        $bt = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 1);
         $caller = array_shift($bt);
-        $lineNumber = $caller['line'];
+        $line = $caller['line'];
+        $path = $caller['file'];
 
-        //execute the write log
+        //execute the writeLog method with passing the arguments
         static::writeLog([
             'message' => $message,
-            'line' => $lineNumber,
+            'line' => $line,
+            'path' => $path,
             'severity' => 'ERROR',
             'context' => $context
         ]);
@@ -226,15 +236,17 @@ class Logger
      */
     public static function fatal($message, array $context = [])
     {
-        // grab the line where the log method has been executed ( for troubleshooting )
-        $bt = debug_backtrace();
+        // grab the line and file path where the log method has been executed ( for troubleshooting )
+        $bt = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 1);
         $caller = array_shift($bt);
-        $lineNumber = $caller['line'];
+        $line = $caller['line'];
+        $path = $caller['file'];
 
-        //execute the write log
+        //execute the writeLog method with passing the arguments
         static::writeLog([
             'message' => $message,
-            'line' => $lineNumber,
+            'line' => $line,
+            'path' => $path,
             'severity' => 'FATAL',
             'context' => $context
         ]);
@@ -256,14 +268,17 @@ class Logger
             static::openLog();
         }
 
-        // grab the url path
-        $path = $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
+        // // grab the url path
+        // $path = $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
 
         //Grab time - based on the time format
         $time = date(static::$options['logFormat']);
 
         // Convert context to json
         $context = json_encode($args['context']);
+
+        // Convert absolute path to relative path (using UNIX directory seperators)
+        $path = static::absToRelPath($args['path']);
 
         // Create log variable = value pairs
         $timeLog = is_null($time) ? "[N/A] " : "[{$time}] ";
@@ -274,7 +289,7 @@ class Logger
         $contextLog = empty($args['context']) ? "" : "{$context}";
 
         // Write time, url, & message to end of file
-        fwrite(static::$file, "{$timeLog}{$pathLog}{$lineLog}: {$severityLog}- {$messageLog} {$contextLog}" . PHP_EOL);
+        fwrite(static::$file, "{$timeLog}{$pathLog}{$lineLog}: {$severityLog} - {$messageLog} {$contextLog}" . PHP_EOL);
 
         // Close file stream
         static::closeFile();
@@ -299,6 +314,23 @@ class Logger
         if (static::$file) {
             fclose(static::$file);
         }
+    }
+
+    /**
+     * Convert absolute path to relative url (using UNIX directory seperators)
+     * 
+     * E.g.:
+     *      Input:      D:\development\htdocs\public\todo-list\index.php
+     *      Output:     localhost/todo-list/index.php
+     * 
+     * @param string Absolute directory/path of file which should be converted to a relative (url) path
+     * @return string Relative path
+     */
+    public static function absToRelPath($pathToConvert)
+    {
+        $pathAbs = str_replace(['/', '\\'], '/', $pathToConvert);
+        $documentRoot = str_replace(['/', '\\'], '/', $_SERVER['DOCUMENT_ROOT']);
+        return $_SERVER['SERVER_NAME'] . str_replace($documentRoot, '', $pathAbs);
     }
 
     /**
