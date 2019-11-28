@@ -1,5 +1,5 @@
 # :floppy_disk: Simple PHP Logger :floppy_disk:
-![License MIT](https://img.shields.io/github/license/advename/Simple-PHP-Logger) ![File size](https://img.shields.io/github/languages/code-size/advename/Simple-PHP-Logger)
+![License MIT](https://img.shields.io/github/license/advename/Simple-PHP-Logger)
 
 *Simple php logger* is a single file PHP log writer which follows various PSR-3 standards and writes logs into a .txt file using one line of code, e.g.
 ```php
@@ -22,7 +22,7 @@ There are many PHP Logger's out there, but most of them either follow all PSR-3 
 ### :white_check_mark: Installation
 Simply download the Logger.php file and require it wherever you need it.
 You can also insert it into a *Log* directory and add a namespace to it, for those who want to use it within an OOP project
-Make sure that the directory `logs/` exists and is writable, else the logger throws an error that it cant read/write/create the log files.
+Make sure that the `logs/` directory exists and is writable, else the logger throws an error that it cant read/write/create the log files.
 
 ### :mag_right: Log levels
 The simple php logger uses six log levels:
@@ -61,7 +61,7 @@ function connectToDatabase()
 }
 ```
 
-#### All methods
+#### Logging methods
 ```php
 <?php
 // Info log
@@ -91,7 +91,14 @@ The simple php logger outputs the logs in the following blueprint:
 [Hour:Minutes:Seconds Date-Month-Yearh] [file-path] [line-of-execution] : [Log level] Descriptive message (optional = The array/object of additional information)
 ```
 
-**Example of the outputs of all methods above**
+You can change the default time output using the `setOptions()` method.
+```codes
+Logger::setOptions([
+    'logFormat' => 'Y-M-d H:i:s'
+]);
+```
+
+**Logger outputs**
 ```codes
 [15:45:33 27-Nov-2019] [localhost/boatie_template/test.php] [4] : [INFO]- The article XX has YY comments 
 [15:45:33 27-Nov-2019] [localhost/boatie_template/test.php] [8] : [NOTICE]- The user XX has created the YY article 
@@ -101,7 +108,7 @@ The simple php logger outputs the logs in the following blueprint:
 [15:45:33 27-Nov-2019] [localhost/boatie_template/test.php] [23] : [FATAL]- Database connection failed ["Very bad database","I didnt feed him"]
 ```
 
-##### Notice
-This logger is based on Drew's LogWriter class [Simple PHP Text Logging Class \| drew.d.lenhart](https://www.drewlenhart.com/blog/simple-php-logger-class)
-
-> **UPDATE:** The readme file will be updated with more informations and examples.
+##### Note
+This logger is inspired by:
+- [Simple PHP Text Logging Class \| drew.d.lenhart](https://www.drewlenhart.com/blog/simple-php-logger-class)
+- [Monolog](https://github.com/Seldaek/monolog) 
