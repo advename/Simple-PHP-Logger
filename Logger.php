@@ -100,15 +100,11 @@ class Logger
     {
         // grab the line and file path where the log method has been executed ( for troubleshooting )
         $bt = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 1);
-        $caller = array_shift($bt);
-        $line = $caller['line'];
-        $path = $caller['file'];
 
         //execute the writeLog method with passing the arguments
         static::writeLog([
             'message' => $message,
-            'line' => $line,
-            'path' => $path,
+            'bt' => $bt,
             'severity' => 'INFO',
             'context' => $context
         ]);
@@ -127,15 +123,11 @@ class Logger
     {
         // grab the line and file path where the log method has been executed ( for troubleshooting )
         $bt = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 1);
-        $caller = array_shift($bt);
-        $line = $caller['line'];
-        $path = $caller['file'];
 
         //execute the writeLog method with passing the arguments
         static::writeLog([
             'message' => $message,
-            'line' => $line,
-            'path' => $path,
+            'bt' => $bt,
             'severity' => 'NOTICE',
             'context' => $context
         ]);
@@ -153,18 +145,13 @@ class Logger
     public static function debug($message, array $context = [])
     {
 
-
         // grab the line and file path where the log method has been executed ( for troubleshooting )
         $bt = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 1);
-        $caller = array_shift($bt);
-        $line = $caller['line'];
-        $path = $caller['file'];
 
         //execute the writeLog method with passing the arguments
         static::writeLog([
             'message' => $message,
-            'line' => $line,
-            'path' => $path,
+            'bt' => $bt,
             'severity' => 'DEBUG',
             'context' => $context
         ]);
@@ -181,18 +168,13 @@ class Logger
      */
     public static function warning($message, array $context = [])
     {
-
         // grab the line and file path where the log method has been executed ( for troubleshooting )
         $bt = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 1);
-        $caller = array_shift($bt);
-        $line = $caller['line'];
-        $path = $caller['file'];
 
         //execute the writeLog method with passing the arguments
         static::writeLog([
             'message' => $message,
-            'line' => $line,
-            'path' => $path,
+            'bt' => $bt,
             'severity' => 'WARNING',
             'context' => $context
         ]);
@@ -211,15 +193,11 @@ class Logger
     {
         // grab the line and file path where the log method has been executed ( for troubleshooting )
         $bt = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 1);
-        $caller = array_shift($bt);
-        $line = $caller['line'];
-        $path = $caller['file'];
 
         //execute the writeLog method with passing the arguments
         static::writeLog([
             'message' => $message,
-            'line' => $line,
-            'path' => $path,
+            'bt' => $bt,
             'severity' => 'ERROR',
             'context' => $context
         ]);
@@ -238,15 +216,11 @@ class Logger
     {
         // grab the line and file path where the log method has been executed ( for troubleshooting )
         $bt = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 1);
-        $caller = array_shift($bt);
-        $line = $caller['line'];
-        $path = $caller['file'];
 
         //execute the writeLog method with passing the arguments
         static::writeLog([
             'message' => $message,
-            'line' => $line,
-            'path' => $path,
+            'bt' => $bt,
             'severity' => 'FATAL',
             'context' => $context
         ]);
@@ -277,13 +251,17 @@ class Logger
         // Convert context to json
         $context = json_encode($args['context']);
 
+        $caller = array_shift($args['bt']);
+        $btLine = $caller['line'];
+        $btPath = $caller['file'];
+
         // Convert absolute path to relative path (using UNIX directory seperators)
-        $path = static::absToRelPath($args['path']);
+        $path = static::absToRelPath($btPath);
 
         // Create log variable = value pairs
         $timeLog = is_null($time) ? "[N/A] " : "[{$time}] ";
         $pathLog = is_null($path) ? "[N/A] " : "[{$path}] ";
-        $lineLog = is_null($args['line']) ? "[N/A] " : "[{$args['line']}] ";
+        $lineLog = is_null($btLine) ? "[N/A] " : "[{$btLine}] ";
         $severityLog = is_null($args['severity']) ? "[N/A]" : "[{$args['severity']}]";
         $messageLog = is_null($args['message']) ? "N/A" : "{$args['message']}";
         $contextLog = empty($args['context']) ? "" : "{$context}";
