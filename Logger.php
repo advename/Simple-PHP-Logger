@@ -9,13 +9,12 @@
  * 
  * Description:
  * The simple php logger is a single-file logwriter with the features of:
- *  - following some PSR-3 standards
- *  - single file
- *  - singleton pattern
- *  - six log levels (info, notice, debug, warning, error, fatal)
- *  - logs the line of execution too (good for troubleshooting)
- *  - can be with or without OOP
- *  - no composer needed
+ * - single file
+ * - singleton pattern
+ * - six log levels (info, notice, debug, warning, error, fatal)
+ * - logs the line where the Logger method is executed (good for troubleshooting)
+ * - logs the relative filepath of the source file, not the required one (good for troubleshooting)
+ *
  */
 
 class Logger
