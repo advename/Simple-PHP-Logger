@@ -17,15 +17,15 @@ outputs inside a *log-28-nov-2019.txt*:
 - logs the line where the `Logger` method is executed (good for troubleshooting)
 - logs the relative filepath of the source file, not the required one (good for troubleshooting)
 
-### :wrench: Motivation
+### Motivation :wrench:
 There are many PHP Logger's out there, but most of them are either very heavy or too basic. Sometimes, you simply want something in the middle, suitable for every situation and project size. Therefore, I've decided to create a simple PHP Logger, inspired by several other logging libraries.
 
-### :white_check_mark: Installation
+### Installation :white_check_mark:
 Simply download the Logger.php file and require it wherever you need it.
 You can also insert it into a *Log* directory and add a namespace to it, for those who want to use it within an OOP project
 Make sure that the `logs/` directory exists and is writable, else the logger throws an error that it cant read/write/create the log files.
 
-### :mag_right: Log levels
+### Log levels :mag_right:
 The simple php logger uses six log levels:
 
 |Level   |Description   | Example |
@@ -37,7 +37,7 @@ The simple php logger uses six log levels:
 | ERROR | Any error which is fatal to the operation, but not shutting down the application| Can't open a required file, missing data, etc. | 
 | FATAL | Any error which is shutting down the application| Database unavailable | 
 
-### :books: How to use
+### How to use :books:
 
 #### Basic example
 Here's a basic example how you could use simple php logger
@@ -87,7 +87,7 @@ $information = ["Very bad database", "I didnt feed him"];
 Logger::error("Database connection failed", $information);
 ```
 
-### :book: Log output
+### Log output :book: 
 The simple php logger outputs the logs in the following blueprint:
 ```
 [Hour:Minutes:Seconds Date-Month-Yearh] [file-path] [line-of-execution] : [Log level] Descriptive message (optional = The array/object of additional information)
@@ -113,7 +113,7 @@ Logger::setOptions([
 ##### Note
 **Big thanks to** reddit user [u/mferly](https://www.reddit.com/user/mferly) for his support and guidance!
 
-This logger will never come nearby PSR-3 compliant logger libraries such as [Monolog](https://github.com/Seldaek/monolog), [KLogger](https://github.com/katzgrau/KLogger) or [Analog](https://github.com/jbroadway/analog). This Logger should simply be used for quickly implementing a simple logger with several methods.
+This logger is not a replacement for a PSR-3 compliant logger library such as [Monolog](https://github.com/Seldaek/monolog), [KLogger](https://github.com/katzgrau/KLogger) or [Analog](https://github.com/jbroadway/analog). This Logger should simply be used to quickly implement a simple logger with several methods.
 
 **Inspired by**
 - [Simple PHP Text Logging Class \| drew.d.lenhart](https://www.drewlenhart.com/blog/simple-php-logger-class)
