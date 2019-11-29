@@ -17,15 +17,15 @@ outputs inside a *log-28-nov-2019.txt*:
 - logs the line where the `Logger` method is executed (good for troubleshooting)
 - logs the relative filepath of the source file, not the required one (good for troubleshooting)
 
-### Motivation :wrench:
+### :wrench: Motivation
 There are many PHP Logger's out there, but most of them are either very heavy or too basic. Sometimes, you simply want something in the middle, suitable for every situation and project size. Therefore, I've decided to create a simple PHP Logger, inspired by several other logging libraries.
 
-### Installation :white_check_mark:
+### :white_check_mark: Installation 
 Simply download the Logger.php file and require it wherever you need it.
 You can also insert it into a *Log* directory and add a namespace to it, for those who want to use it within an OOP project
 Make sure that the `logs/` directory exists and is writable, else the logger throws an error that it cant read/write/create the log files.
 
-### Log levels :mag_right:
+### :mag_right: Log levels 
 The simple php logger uses six log levels:
 
 |Level   |Description   | Example |
@@ -37,7 +37,7 @@ The simple php logger uses six log levels:
 | ERROR | Any error which is fatal to the operation, but not shutting down the application| Can't open a required file, missing data, etc. | 
 | FATAL | Any error which is shutting down the application| Database unavailable | 
 
-### How to use :books:
+### :books: How to use 
 
 #### Basic example
 Here's a basic example how you could use simple php logger
@@ -87,7 +87,7 @@ $information = ["Very bad database", "I didnt feed him"];
 Logger::error("Database connection failed", $information);
 ```
 
-### Log output :book: 
+### :book: Log output 
 The simple php logger outputs the logs in the following blueprint:
 ```
 [Hour:Minutes:Seconds Date-Month-Yearh] [file-path] [line-of-execution] : [Log level] Descriptive message (optional = The array/object of additional information)
