@@ -113,7 +113,8 @@ Logger::setOptions([
 ##### Note
 **Big thanks to** reddit user [u/mferly](https://www.reddit.com/user/mferly) for his support and guidance!
 
-This logger is inspired by:
+This logger will never come nearby PSR-3 compliant logger libraries such as [Monolog](https://github.com/Seldaek/monolog), [KLogger](https://github.com/katzgrau/KLogger) or [Analog](https://github.com/jbroadway/analog). This Logger should simply be used for quickly implementing a simple logger with several methods.
+
+**Inspired by**
 - [Simple PHP Text Logging Class \| drew.d.lenhart](https://www.drewlenhart.com/blog/simple-php-logger-class)
-- [Monolog](https://github.com/Seldaek/monolog)
 - [PSR-3](https://www.php-fig.org/psr/psr-3/)
