@@ -1,7 +1,7 @@
 # :floppy_disk: Simple PHP Logger :floppy_disk:
 ![License MIT](https://img.shields.io/github/license/advename/Simple-PHP-Logger)
 
-*Simple php logger* is a single file PHP log writer which follows various PSR-3 standards and writes logs into a .txt file using one line of code, e.g.
+*Simple php logger* is a single file PHP log writer which writes logs into a .txt file using one line of code, e.g.
 ```php
 Logger::info("I'm an info message");
 ```
@@ -11,17 +11,14 @@ outputs inside a *log-28-nov-2019.txt*:
 ```
 
 #### Features
-- following various PSR-3 standards
 - single file
 - singleton pattern
 - six log levels (info, notice, debug, warning, error, fatal)
 - logs the line where the `Logger` method is executed (good for troubleshooting)
 - logs the relative filepath of the source file, not the required one (good for troubleshooting)
-- can be used with or without OOP (Add/remove namespaces)
-- no composer needed :tada:
 
 ### :wrench: Motivation
-There are many PHP Logger's out there, but most of them are either very heavy or too basic. Sometimes, you simply want something in the middle suitable for every situation and project size. Therefore, I've decided to create a basic PHP Logger, based on many PSR-3 standards using a singleton design pattern and inside a single file. This makes it an accessible and powerful logger.
+There are many PHP Logger's out there, but most of them are either very heavy or too basic. Sometimes, you simply want something in the middle, suitable for every situation and project size. Therefore, I've decided to create a simple PHP Logger, inspired by several other logging libraries.
 
 ### :white_check_mark: Installation
 Simply download the Logger.php file and require it wherever you need it.
@@ -118,4 +115,5 @@ Logger::setOptions([
 
 This logger is inspired by:
 - [Simple PHP Text Logging Class \| drew.d.lenhart](https://www.drewlenhart.com/blog/simple-php-logger-class)
-- [Monolog](https://github.com/Seldaek/monolog) 
+- [Monolog](https://github.com/Seldaek/monolog)
+- [PSR-3](https://www.php-fig.org/psr/psr-3/)
