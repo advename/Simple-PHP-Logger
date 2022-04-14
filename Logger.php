@@ -93,7 +93,7 @@ class Logger
      * 
      * @param string $message Descriptive text of the debug
      * @param string $context Array to expend the message's meaning
-     * @return void
+     * @return bool
      */
     public static function info($message, array $context = [])
     {
@@ -101,7 +101,7 @@ class Logger
         $bt = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 1);
 
         //execute the writeLog method with passing the arguments
-        static::writeLog([
+        return static::writeLog([
             'message' => $message,
             'bt' => $bt,
             'severity' => 'INFO',
@@ -116,7 +116,7 @@ class Logger
      * 
      * @param string $message Descriptive text of the debug
      * @param string $context Array to expend the message's meaning
-     * @return void
+     * @return bool
      */
     public static function notice($message, array $context = [])
     {
@@ -124,7 +124,7 @@ class Logger
         $bt = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 1);
 
         //execute the writeLog method with passing the arguments
-        static::writeLog([
+        return static::writeLog([
             'message' => $message,
             'bt' => $bt,
             'severity' => 'NOTICE',
@@ -139,7 +139,7 @@ class Logger
      * 
      * @param string $message Descriptive text of the debug
      * @param string $context Array to expend the message's meaning
-     * @return void
+     * @return bool
      */
     public static function debug($message, array $context = [])
     {
@@ -148,7 +148,7 @@ class Logger
         $bt = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 1);
 
         //execute the writeLog method with passing the arguments
-        static::writeLog([
+        return static::writeLog([
             'message' => $message,
             'bt' => $bt,
             'severity' => 'DEBUG',
@@ -163,7 +163,7 @@ class Logger
      * 
      * @param string $message Descriptive text of the warning
      * @param string $context Array to expend the message's meaning
-     * @return void
+     * @return bool
      */
     public static function warning($message, array $context = [])
     {
@@ -171,7 +171,7 @@ class Logger
         $bt = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 1);
 
         //execute the writeLog method with passing the arguments
-        static::writeLog([
+        return static::writeLog([
             'message' => $message,
             'bt' => $bt,
             'severity' => 'WARNING',
@@ -186,7 +186,7 @@ class Logger
      * 
      * @param string $message Descriptive text of the error
      * @param string $context Array to expend the message's meaning
-     * @return void
+     * @return bool
      */
     public static function error($message, array $context = [])
     {
@@ -194,7 +194,7 @@ class Logger
         $bt = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 1);
 
         //execute the writeLog method with passing the arguments
-        static::writeLog([
+        return static::writeLog([
             'message' => $message,
             'bt' => $bt,
             'severity' => 'ERROR',
@@ -209,7 +209,7 @@ class Logger
      * 
      * @param string $message Descriptive text of the error
      * @param string $context Array to expend the message's meaning
-     * @return void
+     * @return bool
      */
     public static function fatal($message, array $context = [])
     {
@@ -217,7 +217,7 @@ class Logger
         $bt = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 1);
 
         //execute the writeLog method with passing the arguments
-        static::writeLog([
+        return static::writeLog([
             'message' => $message,
             'bt' => $bt,
             'severity' => 'FATAL',
@@ -228,7 +228,7 @@ class Logger
     /**
      * Write to log file
      * @param array $args Array of message (for log file), line (of log method execution), severity (for log file) and displayMessage (to display on frontend for the used)
-     * @return void
+     * @return bool
      */
     // public function writeLog($message, $line = null, $displayMessage = null, $severity)
     public static  function writeLog($args = [])
@@ -266,10 +266,11 @@ class Logger
         $contextLog = empty($args['context']) ? "" : "{$context}";
 
         // Write time, url, & message to end of file
-        fwrite(static::$file, "{$timeLog}{$pathLog}{$lineLog}: {$severityLog} - {$messageLog} {$contextLog}" . PHP_EOL);
+        $result = fwrite(static::$file, "{$timeLog}{$pathLog}{$lineLog}: {$severityLog} - {$messageLog} {$contextLog}" . PHP_EOL);
 
         // Close file stream
         static::closeFile();
+		return ($result===false)?false:true;
     }
 
     /**
@@ -305,6 +306,9 @@ class Logger
      */
     public static function absToRelPath($pathToConvert)
     {
+        if(php_sapi_name()=='cli'){ // run cli mode
+            return __FILE__;
+        }		
         $pathAbs = str_replace(['/', '\\'], '/', $pathToConvert);
         $documentRoot = str_replace(['/', '\\'], '/', $_SERVER['DOCUMENT_ROOT']);
         return $_SERVER['SERVER_NAME'] . str_replace($documentRoot, '', $pathAbs);
