@@ -1,5 +1,7 @@
 <?php
 
+namespace advename;
+
 /**
  * @author  advename
  * @since   October 27, 2019
@@ -27,6 +29,12 @@ class Logger
     protected static $log_file;
 
     /**
+     * $log_dir - directory to store log files
+     * @var string
+     */
+    protected static $log_dir;
+
+    /**
      * $file - file
      * @var string
      */
@@ -43,6 +51,26 @@ class Logger
 
     private static $instance;
 
+
+    /**
+     * Set the directory to store log files
+     * @param string $log_dir - directory to store log files
+     */
+    public static function setLogDirectory($log_dir)
+    {
+        static::$log_dir = $log_dir;
+    }
+
+
+    /**
+     * Get the directory to store log files
+     */
+    public static function getLogDirectory(): string
+    {
+        return static::$log_dir ?? __DIR__;
+    }
+
+
     /**
      * Create the log file
      * @param string $log_file - path and filename of log
@@ -51,12 +79,12 @@ class Logger
     public static function createLogFile()
     {
         $time = date(static::$options['dateFormat']);
-        static::$log_file =  __DIR__ . "/logs/log-{$time}.txt";
+        static::$log_file =  self::getLogDirectory() . "/logs/log-{$time}.txt";
 
 
         //Check if directory /logs exists
-        if (!file_exists(__DIR__ . '/logs')) {
-            mkdir(__DIR__ . '/logs', 0777, true);
+        if (!file_exists(self::getLogDirectory() . '/logs')) {
+            mkdir(self::getLogDirectory() . '/logs', 0777, true);
         }
 
         //Create log file if it doesn't exist.
@@ -67,7 +95,7 @@ class Logger
         //Check permissions of file.
         if (!is_writable(static::$log_file)) {
             //throw exception if not writable
-            throw new Exception("ERROR: Unable to write to file!", 1);
+            throw new \Exception("ERROR: Unable to write to file!", 1);
         }
     }
 
@@ -307,7 +335,7 @@ class Logger
     {
         $pathAbs = str_replace(['/', '\\'], '/', $pathToConvert);
         $documentRoot = str_replace(['/', '\\'], '/', $_SERVER['DOCUMENT_ROOT']);
-        return ($_SERVER['SERVER_NAME'] ?? 'cli') . str_replace($documentRoot, '', $pathAbs);
+        return ($_SERVER['SERVER_NAME'] ?? 'cli~') . str_replace($documentRoot, '', $pathAbs);
     }
 
     /**
@@ -315,13 +343,15 @@ class Logger
      * construction calls with the `new` operator.
      */
     protected function __construct()
-    { }
+    {
+    }
 
     /**
      * Singletons should not be cloneable.
      */
     protected function __clone()
-    { }
+    {
+    }
 
     /**
      * Singletons should not be restorable from strings.
@@ -344,5 +374,6 @@ class Logger
      * construction calls with the `new` operator.
      */
     private function __destruct()
-    { }
+    {
+    }
 }

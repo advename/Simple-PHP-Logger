@@ -39,11 +39,41 @@ The simple php logger uses six log levels:
 
 ### :books: How to use 
 
+#### Installation using Composer
+
+Install the package through [composer](http://getcomposer.org):
+
+```
+composer require advename/simple-php-logger
+```
+
+Make sure, that you include the composer [autoloader](https://getcomposer.org/doc/01-basic-usage.md#autoloading) somewhere in your codebase.
+
+
+
+#### Installation without Composer
+
+If you prefer not to use the Composer autoloader, you can manually include the Logger class in your project. 
+
+Follow these steps:
+Download the `Logger.php` class
+
+``` 
+<?php
+require 'Logger.php';
+
+use advename\Logger;
+```
+
+
 #### Basic example
 Here's a basic example how you could use simple php logger
 ```php
 <?php
-include_once 'Logger.php';
+require __DIR__ . '/../vendor/autoload.php';
+
+use advename\Logger;
+
 
 function connectToDatabase()
 {
@@ -62,6 +92,20 @@ function connectToDatabase()
     }
 }
 ```
+
+#### Define log directory
+
+Define the root log directory where the Logger will output the logs. If not specified, the logs will be saved in the same directory as the Logger.php file.
+
+```php
+<?php
+require __DIR__ . '/../vendor/autoload.php';
+
+use advename\Logger;
+
+Logger::setLogDirectory(__DIR__);
+```
+
 
 #### Logging methods
 ```php

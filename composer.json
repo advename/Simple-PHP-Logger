@@ -1,0 +1,16 @@
+{
+    "name": "advename/simple-php-logger",
+    "description": "A simple and basic PHP Logger writing logs based on an abbreviation of the PSR-3 standard.",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "advename\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "advename"
+        }
+    ],
+    "require": {}
+}
