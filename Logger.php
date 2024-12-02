@@ -5,7 +5,7 @@
  * @since   October 27, 2019
  * @link    https://github.com/advename/Simple-PHP-Logger
  * @license MIT
- * @version 1.0.0
+ * @version 1.0.1
  * 
  * Description:
  * The simple php logger is a single-file logwriter with the features of:
@@ -14,11 +14,22 @@
  * - six log levels (info, notice, debug, warning, error, fatal)
  * - logs the line where the Logger method is executed (good for troubleshooting)
  * - logs the relative filepath of the source file, not the required one (good for troubleshooting)
+ * - added support to configure log level
  *
  */
 
 class Logger
 {
+    /**
+     * log levels
+     */
+
+    public const NOTICE = 'NOTICE';
+    public const DEBUG = 'DEBUG';
+    public const INFO = 'INFO';
+    public const WARNING = 'WARNING';
+    public const ERROR = 'ERROR';
+    public const FATAL = 'FATAL';
 
     /**
      * $log_file - path and log file name
@@ -34,11 +45,12 @@ class Logger
 
     /**
      * $options - settable options
-     * @var array $dateFormat of the format used for the log.txt file; $logFormat used for the time of a single log event
+     * @var array $dateFormat of the format used for the log.txt file; $logFormat used for the time of a single log event; $logLevel used to set the level of logging
      */
     protected static $options = [
         'dateFormat' => 'd-M-Y',
-        'logFormat' => 'H:i:s d-M-Y'
+        'logFormat' => 'H:i:s d-M-Y',
+        'logLevel' => Logger::DEBUG
     ];
 
     private static $instance;
@@ -51,7 +63,7 @@ class Logger
     public static function createLogFile()
     {
         $time = date(static::$options['dateFormat']);
-        static::$log_file =  __DIR__ . "/logs/log-{$time}.txt";
+        static::$log_file = __DIR__ . "/logs/log-{$time}.txt";
 
 
         //Check if directory /logs exists
@@ -79,6 +91,7 @@ class Logger
      *  [
      *      'dateFormat' => 'value of the date format the .txt file should be saved int'
      *      'logFormat' => 'value of the date format each log event should be saved int'
+     *      'logLevel' => 'value of the log level. Hierarchy order NOTICE < DEBUG < INFO < WARNING < ERROR < FATAL'
      *  ]
      */
     public static function setOptions($options = [])
@@ -97,6 +110,15 @@ class Logger
      */
     public static function info($message, array $context = [])
     {
+        $allowedLogLevels = [
+            Logger::NOTICE,
+            Logger::DEBUG,
+            Logger::INFO
+        ];
+        if (!in_array(static::$options['logLevel'], $allowedLogLevels)) {
+            return;
+        }
+
         // grab the line and file path where the log method has been executed ( for troubleshooting )
         $bt = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 1);
 
@@ -120,6 +142,13 @@ class Logger
      */
     public static function notice($message, array $context = [])
     {
+        $allowedLogLevels = [
+            Logger::NOTICE
+        ];
+        if (!in_array(static::$options['logLevel'], $allowedLogLevels)) {
+            return;
+        }
+
         // grab the line and file path where the log method has been executed ( for troubleshooting )
         $bt = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 1);
 
@@ -143,6 +172,13 @@ class Logger
      */
     public static function debug($message, array $context = [])
     {
+        $allowedLogLevels = [
+            Logger::NOTICE,
+            Logger::DEBUG,
+        ];
+        if (!in_array(static::$options['logLevel'], $allowedLogLevels)) {
+            return;
+        }
 
         // grab the line and file path where the log method has been executed ( for troubleshooting )
         $bt = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 1);
@@ -167,6 +203,16 @@ class Logger
      */
     public static function warning($message, array $context = [])
     {
+        $allowedLogLevels = [
+            Logger::NOTICE,
+            Logger::DEBUG,
+            Logger::INFO,
+            Logger::WARNING
+        ];
+        if (!in_array(static::$options['logLevel'], $allowedLogLevels)) {
+            return;
+        }
+
         // grab the line and file path where the log method has been executed ( for troubleshooting )
         $bt = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 1);
 
@@ -190,6 +236,17 @@ class Logger
      */
     public static function error($message, array $context = [])
     {
+        $allowedLogLevels = [
+            Logger::NOTICE,
+            Logger::DEBUG,
+            Logger::INFO,
+            Logger::WARNING,
+            Logger::ERROR
+        ];
+        if (!in_array(static::$options['logLevel'], $allowedLogLevels)) {
+            return;
+        }
+
         // grab the line and file path where the log method has been executed ( for troubleshooting )
         $bt = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 1);
 
@@ -213,6 +270,18 @@ class Logger
      */
     public static function fatal($message, array $context = [])
     {
+        $allowedLogLevels = [
+            Logger::NOTICE,
+            Logger::DEBUG,
+            Logger::INFO,
+            Logger::WARNING,
+            Logger::ERROR,
+            Logger::FATAL
+        ];
+        if (!in_array(static::$options['logLevel'], $allowedLogLevels)) {
+            return;
+        }
+
         // grab the line and file path where the log method has been executed ( for troubleshooting )
         $bt = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 1);
 

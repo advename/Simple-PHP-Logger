@@ -16,6 +16,7 @@ outputs inside a *log-28-nov-2019.txt*:
 - six log levels (info, notice, debug, warning, error, fatal)
 - logs the line where the `Logger` method is executed (good for troubleshooting)
 - logs the relative filepath of the source file, not the required one (good for troubleshooting)
+- supports log level configuration
 
 ### :wrench: Motivation
 There are many PHP Logger's out there, but most of them are either very heavy or too basic. Sometimes, you simply want something in the middle, suitable for every situation and project size. Therefore, I've decided to create a simple PHP Logger, inspired by several other logging libraries.
@@ -26,13 +27,13 @@ You can also insert it into a *Log* directory and add a namespace to it, for tho
 Make sure that the `logs/` directory exists and is writable, else the logger throws an error that it cant read/write/create the log files.
 
 ### :mag_right: Log levels 
-The simple php logger uses six log levels:
+The simple php logger uses six log levels sorted in their hierarchy:
 
 |Level   |Description   | Example |
 |---|---|---|
-| INFO  |  Used for general informations | "The server has been running X hours" |  
 | NOTICE  |  Used for interesting events | "The user $userName has logged in." |  
 | DEBUG | Used for debugging | Could be used instead of echo'ing values |
+| INFO  |  Used for general informations | "The server has been running X hours" |  
 | WARNING | Used for anything that might/ might not be a problem. | "The image XX is 30MB big. This can cause slow web performance" | 
 | ERROR | Any error which is fatal to the operation, but not shutting down the application| Can't open a required file, missing data, etc. | 
 | FATAL | Any error which is shutting down the application| Database unavailable | 
@@ -59,6 +60,34 @@ function connectToDatabase()
         Logger::fatal("Database connection failed", [$e->getMessage()]); // <- Log a fatal error with details
         
         die("Oh snap, looks like something didn't work. Please retry again later"); // <- UX friendly die() message
+    }
+}
+```
+
+#### Basic example with log level configuration
+Here's a basic example how you could use simple php logger and its log level configuration functionality
+```php
+<?php
+include_once 'Logger.php';
+
+function connectToDatabase()
+{
+    // configuring log level to ERROR
+    Logger::setOptions(['logLevel' => Logger::ERROR]);
+
+    $dbhost = 'localhost';
+    $dbname =  'post_website';
+    $dbuser = 'root';
+    $dbport = '3306';
+    $dbpass = '';
+    try {
+        Logger::info("Connecting to database"); // <- this log message will be skipped as configured log level is ERROR
+        $pdo = new PDO("mysql:host=$dbhost;port=$dbport;dbname=$dbname", $dbuser, $dbpass);
+    } catch (PDOException $e) {
+        Logger::error("Error encountered while connecting to the database"); // <- this will be logged as level is ERROR
+        Logger::fatal("Database connection failed", [$e->getMessage()]); // <- this will also be logged as FATAL has higher precedence then ERROR
+        
+        die('Oh snap, looks like something didn't work. Please retry again later'); // <- UX friendly die() message
     }
 }
 ```
